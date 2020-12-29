@@ -3,7 +3,12 @@ package com.example.todoList;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Task implements Parcelable {
+    @PrimaryKey(autoGenerate = true)
     private long id;
     private String title;
     private boolean completed;

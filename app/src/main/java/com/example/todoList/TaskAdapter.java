@@ -54,6 +54,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>   
         }
 
         public void setTask(Task task) {
+            itemView.setOnClickListener(null);
             checkBox.setChecked(task.isCompleted());
             checkBox.setText(task.getTitle());
 
@@ -71,10 +72,30 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>   
                     return false;
                 }
             });
+            checkBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    boolean checked = ((CheckBox) v).isChecked();
+                    if(checked){
+                        task.setCompleted(true);
+                        taskItemEventListener.changeStateCheckBox(task);
+
+                    }else{
+                        task.setCompleted(false);
+                        taskItemEventListener.changeStateCheckBox(task);
+                    }
+
+
+                }
+            });
         }
-
-
     }
+
+    public void clearItems(){
+        this.tasks.clear();
+        notifyDataSetChanged();
+    }
+
     public void addNewItem(Task task){
         tasks.add(0 ,task);
         notifyItemChanged(0);
@@ -100,9 +121,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>   
     }
 
 
+    public void setTasks(List<Task> tasks){
+        this.tasks = tasks;
+        notifyDataSetChanged();
+    }
 
     interface TaskItemEventListener{
         void onDeleteButtonClick(Task task);
         void onLongClickListener(Task task);
+        void changeStateCheckBox(Task task);
     }
 }

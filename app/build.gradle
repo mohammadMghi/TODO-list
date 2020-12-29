@@ -38,4 +38,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'com.hannesdorfmann.parcelableplease:annotation:1.0.2'
     implementation 'com.hannesdorfmann.parcelableplease:processor:1.0.2'
+
+    def room_version = "2.2.6"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
 }
